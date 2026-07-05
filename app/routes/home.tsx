@@ -7,6 +7,9 @@ import {useNavigate} from "react-router";
 import {useEffect, useRef, useState} from "react";
 import {createProject, getProjects} from "../../lib/puter.action";
 
+
+
+
 export function meta({}: Route.MetaArgs) {
     return [
         { title: "New React Router App" },

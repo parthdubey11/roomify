@@ -1,37 +1,40 @@
 import {Box} from "lucide-react";
-import Button from "./ui/button";
+import Button from "./ui/Button";
 import {useOutletContext} from "react-router";
-const Navbar= () => {
-    const {isSignedIn, userName, signIn, signOut  } = useOutletContext<AuthContext>();
+
+const Navbar = () => {
+    const { isSignedIn, userName, signIn, signOut } = useOutletContext<AuthContext>()
 
     const handleAuthClick = async () => {
-      if(isSignedIn) {
-          try {
-               await signOut();
-          } catch (e) {
-              console.error(`Puter sign out failed with error: ${e}`);
-          }
+        if(isSignedIn) {
+            try {
+                await signOut();
+            } catch (e) {
+                console.error(`Puter sign out failed: ${e}`);
+            }
 
-          return;
-      }
+            return;
+        }
 
-      try {
-        await signIn();
-      } catch (e) {
-          console.error(`Puter sign in failed with error: ${e}`);
-      }
+        try {
+            await signIn();
+        } catch (e) {
+            console.error(`Puter sign in failed: ${e}`);
+        }
+    };
 
-    }
     return (
         <header className="navbar">
             <nav className="inner">
                 <div className="left">
                     <div className="brand">
-                        <Box className ="logo" />
-                        <span className ="name">
+                        <Box  className="logo" />
+
+                        <span className="name">
                             Roomify
                         </span>
                     </div>
+
                     <ul className="links">
                         <a href="#">Product</a>
                         <a href="#">Pricing</a>
@@ -39,20 +42,22 @@ const Navbar= () => {
                         <a href="#">Enterprise</a>
                     </ul>
                 </div>
-                <div className="action">
+
+                <div className="actions">
                     {isSignedIn ? (
                         <>
-                            <span className="greetings">
-                                {userName ? `Hi ${userName}` : 'Signed In'}
+                            <span className="greeting">
+                                {userName ? `Hi, ${userName}` : 'Signed in'}
                             </span>
-                            <Button size= "sm" onClick={handleAuthClick} className="btn">
+
+                            <Button size="sm" onClick={handleAuthClick} className="btn">
                                 Log Out
                             </Button>
                         </>
                     ) : (
                         <>
-                            <Button size="sm" onClick={handleAuthClick} variant="ghost">
-                                Log in
+                            <Button onClick={handleAuthClick} size="sm" variant="ghost">
+                                Log In
                             </Button>
 
                             <a href="#upload" className="cta">Get Started</a>
